@@ -14,29 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdlib.h>
-#include <avr/interrupt.h>
-#include "counter.h"
+#ifndef COUNTER_H
+#define COUNTER_H
 
-int main(void)
-{
-	/* prepare everything */
-	counter_setup();
+/* Global variable from 50 to 950 */
+uint16_t duty_cycle;
 
-	/* start with a duty cycle of 50% */
-	duty_cycle = 500;
+void counter_setup(void);
+void counter_start(void);
+void counter_stop(void);
 
-	/* enable interrupt */
-	sei();
-
-	/* start the counter */
-	counter_start();
-
-	/* Infinite loop doing nothing, everything is
-	 handled by the IRQ routine called 500 times x second. */
-	for (;;);
-
-	/* just for correct looking code, disable irq and terminate */
-	cli();
-	return(0);
-}
+#endif
